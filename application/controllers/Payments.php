@@ -32,6 +32,7 @@ class Payments extends MY_Controller {
 		$this->data = array('content'=>'Payments/DoPayments');
 		$this->data['paymentsCategories'] = $this->PaymentModel->getPaymentRows();
 		$this->data['students'] = $this->StudentModel->getStudentsForPayment();
+		
 		//$this->load->view('masterView', $this->data);
 		
 		$totalRec = count($this->PaymentModel->getRows());
@@ -54,25 +55,29 @@ class Payments extends MY_Controller {
 		
 
     public function createPayments(){
+	     
+		  $this->data['payments'] = $this->PaymentModel->getPaymentRows();
+		  $this->data['paymentsTypes'] = $this->PaymentModel->getPaymentsTypes();
+		 
 		 $this->load->library('form_validation');
 		 $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		 $this->form_validation->set_rules('paymentname', 'Name', 'required|min_length[5]|max_length[15]');
-		 
-		 $this->data['payments'] = $this->PaymentModel->getPaymentRows();
-		 
-		 $this->form_validation->set_rules('paymentfrequancy', 'Frequancy', 'required');
+		// $this->form_validation->set_rules('paymentfrequancy', 'Frequancy', 'required');
 		 if ($this->form_validation->run() == FALSE) {
 				$this->loadView('Payments/createPaymentsView', $this->data);
 		} else{
 		
 		$paymentname = $this->input->post('paymentname');
-		$paymentfrequancy = $this->input->post('paymentfrequancy');
+	echo 	$paymentType = $this->input->post('paymentType');
 		$description = $this->input->post('description');
+		$amount = $this->input->post('amount');
+		$paymentType = $this->input->post('paymentType');
 		
 		$data = array(
 			'paymentname'   =>  $paymentname,
-			'paymentfrequancy'   =>  $paymentfrequancy,
-			'description'   =>  $description
+			'type'   =>  $paymentType,
+			'description'   =>  $description,
+			'amount' => $amount
 			);
 		
 		
@@ -83,6 +88,7 @@ class Payments extends MY_Controller {
 				}else{
 				//echo $this->StudentModel->addnewStudents($data);
 				$this->session->set_flashdata('flashDanger','Error OCcured, Try again');
+				redirect('Payments/createPayments' );
 			} 
 		
 		}
@@ -108,7 +114,8 @@ class Payments extends MY_Controller {
 			'paymentcategoryid' => $this->input->post('id'),
 			'paymentname' => $this->input->post('paymentname'),
              'paymentfrequancy' => $this->input->post('paymentfrequancy'),
-            'description' => $this->input->post('description')
+            'description' => $this->input->post('description'),
+			'amount' => $this->input->post('amount')
 		     
 			);
             $this->PaymentModel->update($id,$payment);
@@ -120,10 +127,99 @@ class Payments extends MY_Controller {
 	        $id = $this->uri->segment(3);
 			//$id = $this->input->post('id');
 			
-            $this->PaymentModel->delete($id);
+            $this->PaymentModel->deletePayment($id);
 			
-			redirect('Payments/createPayments');
+			redirect('Payments/SearchPayments');
 		} 
+	
+	
+	
+	public function otherPaymentsView()
+	{
+		$this->data = array('content'=>'Payments/DoPayments');
+		$this->data['paymentsCategories'] = $this->PaymentModel->getPaymentRows();
+		$this->data['students'] = $this->StudentModel->getStudentsForPayment();
+		//$this->load->view('masterView', $this->data);
+		
+		$totalRec = count($this->PaymentModel->getRows());
+        
+        //pagination configuration
+        $config['first_link']  = 'First';
+        $config['div']         = 'postList'; //parent div tag id
+        $config['base_url']    = base_url().'index.php/Payments/ajaxPaginationData';
+        $config['total_rows']  = $totalRec;
+        $config['per_page']    = 10;
+        
+        $this->ajax_pagination->initialize($config);
+        
+        //get the posts data
+        $this->data['payments'] = $this->PaymentModel->getRows(array('limit'=>$this->perPage));
+		
+		 $this->loadView('Payments/otherPaymentsView', $this->data);
+		//$this->load->view('Payments/payments_view', $this->data);
+		}
+	
+	
+	public function doOtherPayments(){
+    echo	$studentId = $this->input->post('studentname');
+	echo	$paymentCatagoryId =	$this->input->post('paymentCatagoryId');
+	echo	$amount  = $this->input->post('amount');
+	echo	$notes  = $this->input->post('notes');
+		// get the current user 
+	echo	$userId = $this->ion_auth->user()->row()->id;
+	echo	$date = date("Y/m/d");
+	echo	$time = date("h:i:sa");
+	//	echo $studentId;
+		$payment = array(
+			'studentId' => $studentId,
+			'paymentCatagoryId' => $paymentCatagoryId,
+             'amount' => $amount,
+            'notes' => $notes,
+		      'officer' => $userId,
+			   'date' => $date,
+			    'time' => $time
+			  
+			);
+		  $paymentId = $this->PaymentModel->doPayments($payment);
+		  
+		if(!$paymentId=null){
+		
+		 $this->data['student'] = $this->StudentModel->getSingleStudent2($studentId)->row();
+		$this->data['payments'] = $this->PaymentModel->getPayment($paymentId);
+		
+		
+		// $this->loadView('Payments/Recipt', $this->data, false);
+		//echo 'SUCCESS';	
+		$this->session->set_flashdata('flashSuccess', 'Payment Success');
+		redirect('Payments/otherPaymentsView');		
+		}else{
+		
+		//echo 'FAILED';
+		$this->session->set_flashdata('flashFail', 'Payment  Failed, Try Again');
+		redirect('Payments/otherPaymentsView');			
+		} 
+		
+		
+	  
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public function doPayments(){
@@ -212,14 +308,14 @@ class Payments extends MY_Controller {
 	function ajaxGetPaymentSearch()
     {
         $search=  $this->input->post('search');
-        $totalRec = count($this->PaymentModel->getRows());
-        $config['first_link']  = 'First';
+       // $totalRec = count($this->PaymentModel->getRows());
+       // $config['first_link']  = 'First';
        // $config['div']         = 'postList'; //parent div tag id
-        $config['base_url']    = base_url().'index.php/payments/ajaxGetPaymentSearch';
-        $config['total_rows']  = $totalRec;
-        $config['per_page']    = $this->perPage;
+      //  $config['base_url']    = base_url().'index.php/payments/ajaxGetPaymentSearch';
+       // $config['total_rows']  = $totalRec;
+      //  $config['per_page']    = $this->perPage;
         
-        $this->ajax_pagination->initialize($config);
+       // $this->ajax_pagination->initialize($config);
         
         //get the posts data
         $this->data['payments'] = $this->PaymentModel->getPayment($search);

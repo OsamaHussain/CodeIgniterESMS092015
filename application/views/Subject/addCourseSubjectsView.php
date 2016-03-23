@@ -4,7 +4,7 @@
  <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Course
+           Add Course Subjects
             
           </h1>
           <ol class="breadcrumb">
@@ -29,66 +29,61 @@
             <div class="box-body">
 	
 	
+	<?php if ($this->session->flashdata('flashSuccess')) { ?>
+						<div id='alert alert-warning'  class="alert alert-info"> <?= $this->session->flashdata('flashSuccess') ?> </div>
+						<?php } ?>	
+      
+						<?php if ($this->session->flashdata('flashFail')) { ?>
+						<div id='alert alert-warning'  class="alert-alert-warning"> <?= $this->session->flashdata('flashFail') ?> </div>
+						<?php } ?>	
+	
 
-	<?php $attributes = array("name" => "registerstudentform");
-            echo form_open("Course/updateCourse")?>
+	<?php $attributes = array("name" => "addCoursePayments");
+            echo form_open("Subject/addCourseSubjects")?>
      
-	 	  <div class="form-group">
+	 
+	  <div class="form-group">
+			<label>Select Course</label>
+							<select class="form-control" name="courseId" id="coursename" required >
+	                        <option > <?php echo 'Select Course'; ?></option>
+							<?php foreach($courses as $course): ?>
+							<option value=<?php echo $course->id;  ?> > <?php echo $course->name; ?></option>
+							<?php endforeach; ?>
+                                              
+							</select>
+	</div>
+	 
+	 
+	 <div class="form-group">
+			<label>Subject</label>
+							<select class="form-control" name="subjectId" id="paymentId" >
+	                        <option value='' > <?php echo 'Slect Subject'; ?></option>
+							<?php foreach($subjects as $subject): ?>
+							<option value=<?php echo $subject->id;  ?> > <?php echo $subject->name; ?></option>
+							<?php endforeach; ?>
+                                              
+							</select>
+	</div>
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	   
 				
-				<?php $data = array(
-          'name'        => 'id',
-          'value'          => $course->id,
-          'class'       => 'form-control',
-          'type' => 'hidden'
-           
-          );
-     echo form_input($data);   ?> 
-      </div> 
-	 
-	 
-	 
-	 
-	 
-	 
-	  <div class="form-group">
-				<label>Name</label>      
-				<?php $data = array(
-          'name'        => 'name',
-          'value'          => $course->name,
-          'class'       => 'form-control',
-          'placeholder' => 'Eg English'
-           
-          );
-     echo form_input($data);   ?> 
-      </div> 
-	 
-	 
-	  <div class="form-group">
-				<label>Description</label>      
-				<?php $data = array(
-          'name'        => 'description',
-          'value'          => $course->description,
-          'class'       => 'form-control',
-          'placeholder' => 'Eg Test'
-           
-          );
-     echo form_input($data);   ?> 
-      </div> 
-      
-      <div class="form-group">
-				<label>Course Code</label>      
-				<?php $data = array(
-          'name'        => 'cousrecode',
-          'value'          => $course->cousrecode,
-          'class'       => 'form-control',
-          'placeholder' => 'Eg Test'
-           
-          );
-     echo form_input($data);   ?> 
-      </div> 
-      
      
-     
+       
+	   
+	   
+			
+	   
       
       
        <div class="form-group">
@@ -140,23 +135,26 @@
 <div class="box-body  no-padding">
   <table class="table table-striped"id="postList" class="list">
 	<tr>
+		<th><?php echo 'COURSE CODE';?></th>
+		<th><?php echo 'COURSE NAME';?></th>
+		<th><?php echo 'SUBJECT CODE';?></th>
+		<th><?php echo 'SUBJECT NAME';?></th>
 		
-		<th><?php echo 'Course name';?></th>
-		<th><?php echo 'Course Description';?></th>
-		<th><?php echo 'Actions';?></th>
+	
+		
+		
 
 	</tr>
 	
-	<?php if($courses!=null):?>
-	<?php foreach ($courses as $course):?>
+	<?php if($courseSubjects!=null):?>
+	<?php foreach ($courseSubjects as $courseSubject):?>
 		<tr>
-            
-            <td><?php echo $course->name;?></td>
-            <td><?php echo $course->description;?></td>
-			
-			
-			<td>
-			<div class="btn-group">
+            <td><?php echo $courseSubject->cousrecode;?></td> 
+            <td><?php echo $courseSubject->cname;?></td>
+			 <td><?php echo $courseSubject->scode;?></td>
+			  <td><?php echo $courseSubject->sname;?></td>
+            <td><?php ?></td>
+			<td><div class="btn-group">
                       <button type="button" class="btn btn-info">Action</button>
                       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
 						  <span class="caret"></span>
@@ -164,17 +162,15 @@
                       </button>
                       <ul class="dropdown-menu" role="menu">
                         <li><a href="<?php echo site_url('Course/editCourse') . '/' . $course -> id; ?>">Edit</a></li>
-                        <li><a class='deleteUser' href="<?php echo site_url('Course/deleteCourse') . '/' . $course -> id; ?>">Delete</a></li>
+                        <li><a class='deleteUser' href="<?php echo site_url('Course/deleteCoursePayments') . '/' . $course -> id; ?>">Delete</a></li>
                        
                       </ul>
                     </div>
-		</td>	
-			
-			
+			</td>
 		</tr>
 	<?php endforeach;?>
 	<?php  else: ?>
-	 No Courses Available
+	 No Courses Payments Added yet
 	 <?php  endif; ?>
 </table>
 </div>

@@ -1,12 +1,13 @@
  <table class="table table-striped"id="postList" class="list">
                     <tr>
                       <th>Payment Reference</th>
+					   <th>Student Id</th>
                       <th>Student Name</th>
                       <th>Payment Category</th>
 					  <th>Amount</th>
 					 <th>Officer</th>
 					  <th>Date</th>
-					   <th>Time</th>
+					  
 					  <th>Action</th>
                     </tr>
 					<div >  
@@ -18,12 +19,13 @@
 					<?php foreach($payments as $payment): ?>
                     <tr>
                       <td><?php echo $payment->studentspaymentid; ?></td>
+					   <td><?php echo $payment->studentId; ?></td>
                       <td><?php echo $payment->name; ?></td>
 					  <td><?php echo $payment->paymentname; ?></td>
 					  <td><?php echo $payment->amount; ?></td>
                       <td><?php echo $payment->user; ?></td>
 					   <td><?php echo $payment->pdate; ?></td>
-					  <td><?php echo $payment->ptime; ?></td>
+					  
 					  <td>
 						  <div class="btn-group">
                       <button type="button" class="btn btn-info">Action</button>

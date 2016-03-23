@@ -49,34 +49,7 @@
             }  
         </style>  
         
-		<script type="text/javascript">  
-        $(this).ready( function() {  
-            $("#id2").autocomplete({  
-                minLength: 1,  
-                source:   
-                function(req, add){  
-                    $.ajax({  
-                        url: "<?php echo base_url(); ?>index.php/autocomplete/lookup",  
-                        dataType: 'json',  
-                        type: 'POST',  
-                        data: req,  
-                        success:      
-                        function(data){  
-                            if(data.response =="true"){  
-                                add(data.message);  
-                            }  
-                        },  
-                    });  
-                },  
-            select:   
-                function(event, ui) {  
-                    $("#name").append(  
-                        "<li>"+ ui.item.value + "</li>"  
-                    );                    
-                },        
-            });  
-        });  
-        </script>  
+		
            
     </head>
             	
@@ -100,7 +73,7 @@
 		
 	 <div id="container"></div>
 	 
-		<div class="col-md-6">
+		<div class="col-md-8">
           <!-- Default box -->
 			<div class="box">
 					<div class="box-header with-border">
@@ -127,7 +100,7 @@
 		
 		
 		
-		echo form_open('Payments/doPayments', $attributes)?>
+		echo form_open('Payments/doOtherPayments', $attributes)?>
    
 				
 	                
@@ -144,7 +117,7 @@
 					</div>  
 	 
 					<div class="form-group">
-							<label>Selects Payment Catagory</label>
+							<label>Selects Payment</label>
 							<select class="form-control" name="paymentCatagoryId" id="paymentCatagoryId" >
 	
 							<?php foreach($paymentsCategories as $paymentsCategory): ?>
@@ -185,7 +158,7 @@
 	 
 					<div class="form-group" >
                 
-				    <?php echo form_submit('submit', 'Submit', "class='submit'"); ?>
+				    <?php echo form_submit('submit', 'Do Payment', 'class="btn btn-primary"'); ?>
 					
 					<button type="reset" class="btn btn-primary">Reset</button>
 					
@@ -199,134 +172,7 @@
             </div><!-- /.box-body -->
 			
 		</div><!-- /.box -->
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		<div class="row">
-            <div class="col-md-6">
-              <div class="box">
-					<div class="box-header with-border">
-					<h3 class="box-title">Student Payments Details</h3>
-					<div class="box-tools pull-right">
-					<button class="btn btn-box-tool" title="Collapse"></button>
-					<button class="btn btn-box-tool" title="Remove"></button>
-					</div>
-					</div>
-				<div class="box-body">
-            
-					<?php if ($this->session->flashdata('flashSuccess')) { ?>
-						<div id='alert alert-warning'  class="alert alert-info">
-							<?= $this->session->flashdata('flashSuccess') ?> </div>
-						<?php } ?>	
-      
-					<?php if ($this->session->flashdata('flashFail')) { ?>
-					<div id='alert alert-warning'  class="alert-alert-warning"> 
-						<?= $this->session->flashdata('flashFail') ?> </div>
-					<?php } ?>	
-      
-      
-						<?php $attributes = array("name" => "registerstudentform"); ?>
-						
-   
-     
-	 
-	 
-					<div class="form-group">
-					<label>Student Name</label>      
-					<?php $data = array(
-					'id' =>'studentnameP',
-					'name'        => 'studentnameP',
-					'class'       => 'form-control',
-					'style'       => 'height:30px',
-					'readonly' => 'true'
-					);
-					echo form_input($data);   ?> 
-					</div>
-	               
-				   
-				    <div class="form-group">
-					<label>Register Number</label>      
-					<?php $data = array(
-					'id' =>'registernumberP',
-					'name'        => 'registernumberP',
-					'class'       => 'form-control',
-					'style'       => 'height:30px',
-					 'readonly' => 'true'
-					);
-					echo form_input($data);   ?> 
-					</div>
-	 
-	                 <div class="form-group">
-					<label>Parent Name</label>      
-					<?php $data = array(
-						'id' =>'parentnameP',
-					'name'        => 'parentnameP',
-					'class'       => 'form-control',
-					'style'       => 'height:30px',
-					'placeholder' => 'Eg: Thasneem ILM',
-					 'readonly' => 'true'
-					);
-					echo form_input($data);   ?> 
-					</div>
-					
-					
-					
-					 <div class="form-group">
-					<label>Payment Category</label>      
-					<?php $data = array(
-						'id' =>'paymentcategoryP',
-					'name'        => 'paymentcategoryP',
-					'class'       => 'form-control',
-					'style'       => 'height:30px',
-					'readonly' => 'true'
-					);
-					echo form_input($data);   ?> 
-					</div> 
-	 
-	 
-					<div class="form-group">
-						<label>Balance To Date</label>      
-						<?php $data = array(
-						'id' =>'balanceP',
-						'name'        => 'balanceP',
-						//'value'          => $this->input->post('studentname'),
-						'class'       => 'form-control',
-						'style'       => 'height:30px',
-						'placeholder' => 'Eg: 1000'
-						// 'required' => 'required'
-						);
-						echo form_input($data);   ?> 
-					</div>
-				
-				</div> 
-      
-            </div><!-- /.box-body -->
-             
-            </div><!-- /.col -->
-            
-        </div><!-- /.row -->	
-			
-			
-			
-	
-           
+		 
         		<!-- /.row --> 
  
     </section><!-- /.content -->
@@ -338,72 +184,11 @@
 
 <table border='1' id="display"></table>		
 		
-<script type="text/javascript">
-	
-	
 
-
-
-// Ajax post
-$(document).ready(function() {
-
-$(".submitt").click(function(event) {
-event.preventDefault();
-
-var studentId = $("select#studentId").val();
-var amount = $("input#amount").val();
-var paymentCatagoryId = $("select#paymentCatagoryId").val();
-var paymentCatagoryId = $("select#paymentCatagoryId").val();
-var notes = $("input#notes").val();
-jQuery.ajax({
-type: "POST",
-url: "<?php echo base_url(); ?>" + "index.php/Payments/doPayments",
-dataType: 'json',
-data: {amount: amount, studentId: studentId, paymentCatagoryId:paymentCatagoryId, notes:notes },
-success: function(res) {
- $('#alert alert-warning').html("data insert successfully").fadeIn('slow')
-}
-});
-});
-});
-</script>
 		
 
 
-<script type="text/javascript">		
 
-$( "#studentId" ).keyup(function() {
-	$('#registernumberP').val('');
-});	
-	
-$( "#studentIdr" ).change(function() {
-	$('#registernumberP').val('');
-	$('#studentnameP').val('');
-	
-	$('#parentnameP').val('');
-    studentId = $('#studentId').val();
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "<?php echo base_url(); ?>" + "index.php/Payments/GetStudentPaymentDetails",
-        data: {studentId: studentId},
-        success: function(data) {
-		     
-			$('#studentnameP').val(data.name);
-			$('#registernumberP').val(data.studentId);
-			$('#parentnameP').val(data.parentname);
-			
-			$('#registernumberP').val(data.studentId);
-			
-			},
-        error : function(){
-           alert('Some error occurred!');
-        },
-		
-    });
-});	
-
-</script>
 		
  	
 		

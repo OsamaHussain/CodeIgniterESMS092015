@@ -145,7 +145,7 @@
             	
             	
             	
-     <form method="post" action="" id="upload_file">
+     <!--form method="post" action="" id="upload_file">
         <label for="title">Title</label>
         <input type="text" name="title" id="title" value="" />
  
@@ -153,7 +153,7 @@
         <input type="file" name="userfile" id="userfile" size="20" />
  
         <input type="submit" name="submit" id="submit" />
-    </form>       	
+    <--/form>       	
             	
             	
             	

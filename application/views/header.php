@@ -17,11 +17,13 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE-2.3.0/dist/css/skins/_all-skins.min.css">
 	
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!--link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"-->
 	
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/datepicker.css">
+	<!--link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/datepicker.css"-->
+	
+	<script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	
 	
 
@@ -229,17 +231,38 @@
                 <i class="fa fa-dashboard"></i> <span>Course</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url() ?>index.php/Course"><i class="fa fa-circle-o"></i>Create New</a></li>
+                <li><a href="<?php echo base_url() ?>index.php/Course"><i class="fa fa-circle-o"></i>Create New Course</a></li>
+				<li><a href="<?php echo base_url() ?>index.php/Course/addCoursePaymentsView"><i class="fa fa-circle-o"></i>Add Course payments</a></li>
+				<li><a href="<?php echo base_url() ?>index.php/Course/registerStudentView"><i class="fa fa-circle-o"></i>Register Students</a></li>
+								<li><a href="<?php echo base_url() ?>index.php/Course/studentCoursePaymentsView"><i class="fa fa-circle-o"></i>Student Course Payments</a></li>
 				</ul>
             </li>
+			
+			
+			
+			            
+             <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Subject</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo base_url() ?>index.php/Subject"><i class="fa fa-circle-o"></i>Create New Subject</a></li>
+				<li><a href="<?php echo base_url() ?>index.php/Subject/addCourseSubjectsView"><i class="fa fa-circle-o"></i>Add Course Subjects
+				</a></li>
+				</ul>
+            </li>
+			
+			
 			
 			 <li class="treeview">
               <a href="#">
                 <i class="fa fa-dashboard"></i> <span>Payments</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-			   <li><a href="<?php echo base_url() ?>index.php/Payments/createPayments"><i class="fa fa-circle-o"></i>Create Payments</a></li>
-                <li><a href="<?php echo base_url() ?>index.php/Payments/"><i class="fa fa-circle-o"></i>Do Payments</a></li>
+			   <li><a href="<?php echo base_url() ?>index.php/Payments/createPayments"><i class="fa fa-circle-o"></i>Create New Payments</a></li>
+                <!--li><a href="<?php echo base_url() ?>index.php/Payments/"><i class="fa fa-circle-o"></i>Course Payments</a></li-->
+				<li><a href="<?php echo base_url() ?>index.php/Payments/otherPaymentsView"><i class="fa fa-circle-o"></i>Other Payments</a></li>
+			   <!--li><a href="<?php echo base_url() ?>index.php/Payments/"><i class="fa fa-circle-o"></i>Do Payments</a></li-->
 				 <li><a href="<?php echo base_url() ?>index.php/Payments/SearchPayments"><i class="fa fa-circle-o"></i>Search Payments</a></li>
 				</ul>
 				</li>

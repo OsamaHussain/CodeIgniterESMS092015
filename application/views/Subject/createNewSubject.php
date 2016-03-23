@@ -4,13 +4,13 @@
  <!-- Content Header (Page header) -->
     <section class="content-header">
           <h1>
-            Payments
+          Subjects
             
           </h1>
           <ol class="breadcrumb">
             <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url() ?>index.php/Payments">Payments</a></li>
-            <li class="active">create Payments</li>
+            <li><a href="<?php echo base_url() ?>index.php/Payments">Subjects</a></li>
+            <li class="active">create Subjects</li>
           </ol>
     </section>
 
@@ -39,68 +39,44 @@
       
       
 							<?php $attributes = array("name" => "registerstudentform");
-							echo form_open("Payments/createPayments")?>
+							echo form_open("Subject/createNewSubject")?>
    
      
 	 
 	 
 							<div class="form-group">
-								<label>Payment Name</label>      
+								<label>Subject Name</label>      
 								<?php $data = array(
 							    'id' =>'id',
-								'name'        => 'paymentname',
+								'name'        => 'subjectname',
 								//'value'          => $this->input->post('studentname'),
 								'class'       => 'form-control',
 								'style'       => 'height:30px',
-								'placeholder' => 'Eg: Month'
+								'placeholder' => 'Eg: Maths'
 								// 'required' => 'required'
 								);
 								echo form_input($data);   ?> 
-								<?php echo form_error('paymentname'); ?>
+								<?php echo form_error('subjectname'); ?>
 							</div>
 	                        
 							
-							<div class="form-group">
-							<label>Paymnet Type</label>
-							<select class="form-control" name="paymentType" id="studentId" >
-	
-							<?php foreach($paymentsTypes as $paymentsType): ?>
-							<option value=<?php echo $paymentsType->id;  ?> > <?php echo $paymentsType->name; ?></option>
-							<?php endforeach; ?>
-                                              
-							</select>
-							</div>  
-							
-							
 	  
 	  
 							<div class="form-group">
-								<label>Description</label>      
+								<label>Subject Code</label>      
 								<?php $data = array(
 								'id' =>'id',
-								'name'        => 'description',
+								'name'        => 'subjectcode',
 								//'value'          => $this->input->post('studentname'),
 								'class'       => 'form-control',
 								'style'       => 'height:30px',
-								'placeholder' => ' test'
+								'placeholder' => ' Ma/05'
 								);
 								echo form_input($data);   ?> 
 								<?php echo form_error('description'); ?>
 							</div>
 	                         
-							 <div class="form-group">
-								<label>Amount Of Single Payment</label>      
-								<?php $data = array(
-								
-								'name'        => 'amount',
-								//'value'          => $this->input->post('studentname'),
-								'class'       => 'form-control',
-								'style'       => 'height:30px',
-								'placeholder' => ' 500'
-								);
-								echo form_input($data);   ?> 
-								<?php echo form_error('description'); ?>
-							</div>
+							
 							 
 							 
 	 
@@ -154,26 +130,24 @@
 						<div class="box-body  no-padding">
 						<table class="table table-striped"id="postList" class="list">
 							<tr>
-							<th>Payment Name</th>
-							<th>Type</th>
-							<th>Description</th>
-							<th>Amount</th>
+							<th>Name</th>
+							<th>Code</th>
+							
 							<th>Actions</th>
 							</tr>
 							
-							<?php if ($payments) { ?>
+							<?php if ($subjects) { ?>
 								
-					      <?php foreach($payments as $payment): ?>
+					      <?php foreach($subjects as $subject): ?>
                     <tr>
                       
-                      <td><?php echo $payment->paymentname; ?></td>
+                      <td><?php echo $subject->name; ?></td>
                        <td><?php 
-						   echo $payment->type;
+						   echo $subject->code;
 
 						   
 						  ?></td>
-					   <td><?php echo $payment->description; ?></td>
-					     <td><?php echo $payment->amount; ?></td>
+					  
 					   
                        <td > <div class="btn-group">
                       <button type="button" class="btn btn-info">Action</button>
@@ -182,8 +156,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a href="<?php echo site_url('Payments/edit') . '/' . $payment -> paymentcategoryid; ?>">Edit</a></li>
-                        <li><a class='deleteUser' href="<?php echo site_url('Payments/delete') . '/' . $payment -> paymentcategoryid; ?>">Delete</a></li>
+                        <li><a href="<?php echo site_url('Subject/edit') . '/' . $subject->id; ?>">Edit</a></li>
+                        <li><a class='deleteUser' href="<?php echo site_url('Subject/delete') . '/' . $subject->id; ?>">Delete</a></li>
                         
                       </ul>
                     </div> </td>

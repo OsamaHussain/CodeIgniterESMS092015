@@ -1,9 +1,40 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            	
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script-->
+ 
+ <script>
+	$(document).ready(function(){
+		$("#search").keyup(function(){
+		if($("#bsearch").val().length>0){
+		$.ajax({
+			type: "post",
+			url: "http://localhost/CodeIgniter3Tests/index.php/Student/ajaxGetStudentSearch3",
+			cache: false,				
+			data:'search='+$("#search").val(),
+			success: function(response){
+				$('#studentId').html(response);
+					
+				
+			},
+			error: function(){						
+				alert('Error while request..');
+			}
+		});
+		}
+		return false;
+	  });
+	});
+</script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 				<!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Add New Students
+            Add Images
             
           </h1>
           <ol class="breadcrumb">
@@ -15,11 +46,18 @@
 
         <!-- Main content -->
         <section class="content">
-			<div class="col-md-6">
+			<div class="col-md-8">
           <!-- Default box -->
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Hi !</h3>
+              <h3 class="box-title">
+			  <div class="input-group" style="width: 300px;">
+                      <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search Students" name="search" id="search">
+                      <div class="input-group-btn">
+                        
+                      </div>
+                    </div>
+			  </h3>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" title="Collapse"></button>
                 <button class="btn btn-box-tool" title="Remove"></button>

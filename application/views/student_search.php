@@ -1,10 +1,17 @@
-     
-<script type="text/javascript" language="javascript" src="http://www.technicalkeeda.com/js/javascripts/plugin/jquery.js"></script>
-<script type="text/javascript" src="http://www.technicalkeeda.com/js/javascripts/plugin/json2.js"></script>
+  
+
+  
+  
+  
+  
+  
+  
+<!--script type="text/javascript" language="javascript" src="http://www.technicalkeeda.com/js/javascripts/plugin/jquery.js"></script-->
+<!--script type="text/javascript" src="http://www.technicalkeeda.com/js/javascripts/plugin/json2.js"></script-->
 <script>
 	$(document).ready(function(){
 		$("#search").keyup(function(){
-		if($("#search").val().length>1){
+		if($("#search").val().length>0){
 		$.ajax({
 			type: "post",
 			url: "http://localhost/CodeIgniter3Tests/index.php/Student/ajaxGetStudentSearch2",

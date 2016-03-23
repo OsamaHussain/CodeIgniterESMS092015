@@ -1,23 +1,16 @@
   
-   <script>
-	 
-	 $(document).ready(function(){
-	$("#submit").click(function(){
-	$("#form").submit();  // jQuey's submit function applied on form.
-	});
-	});
-	</script>     
+     
 
  <!-- Content Header (Page header) -->
     <section class="content-header">
           <h1>
-            Payments
+          Subjects
             
           </h1>
           <ol class="breadcrumb">
             <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url() ?>index.php/Payments">Payments</a></li>
-            <li class="active">create Payments</li>
+            <li><a href="<?php echo base_url() ?>index.php/Payments">Subjects</a></li>
+            <li class="active">create Subjects</li>
           </ol>
     </section>
 
@@ -46,82 +39,59 @@
       
       
 							<?php $attributes = array("name" => "registerstudentform");
-							echo form_open("Payments/updatePayments")?>
+							echo form_open("Subject/update")?>
    
                             <div class="form-group">
-								<label>Description</label>      
+								   
 								<?php $data = array(
-								
+							   // 'id' =>'id',
 								'name'        => 'id',
-								'value'       => $payment->paymentcategoryid,
-								'class'       => 'form-control',
-								'required'       => 'true',
-								'readonly'    => 'true'
+								'value'          => $subject->id,
+								//'class'       => 'form-control',
+								//'style'       => 'height:30px',
+								//'placeholder' => 'Eg: Maths'
+								'type' => 'hidden'
 								);
 								echo form_input($data);   ?> 
+								<?php echo form_error('subjectname'); ?>
 							</div>
 	 
 	 
 							<div class="form-group">
-								<label>Payment Name</label>      
+								<label>Subject Name</label>      
 								<?php $data = array(
-							    
-								'name'        => 'paymentname',
-								'value'          => $payment->paymentname,
+							    'id' =>'id',
+								'name'        => 'subjectname',
+								'value'          => $subject->name,
 								'class'       => 'form-control',
 								'style'       => 'height:30px',
-								'placeholder' => 'Eg: Month'
+								'placeholder' => 'Eg: Maths'
 								// 'required' => 'required'
 								);
 								echo form_input($data);   ?> 
-								<?php echo form_error('paymentname'); ?>
+								<?php echo form_error('subjectname'); ?>
 							</div>
-	 
-							<div class="form-group">
-								<label>Frequancy per Year</label>      
-								<?php $data = array(
-								
-								'name'        => 'paymentfrequancy',
-								'value'          => $payment->paymentfrequancy,
-								'class'       => 'form-control',
-								'style'       => 'height:30px',
-								'placeholder' => 'Eg: 4 or 6 0r 12'
-								// 'required' => 'required'
-								);
-								echo form_input($data);   ?> 
-							</div>
-	 
-	                      
+	                        
+							
+	  
 	  
 							<div class="form-group">
-								<label>Description</label>      
+								<label>Subject Code</label>      
 								<?php $data = array(
 								'id' =>'id',
-								'name'        => 'description',
-								'value'          => $payment->description,
+								'name'        => 'subjectcode',
+								'value'          =>  $subject->code,
 								'class'       => 'form-control',
 								'style'       => 'height:30px',
-								'placeholder' => ' test'
+								'placeholder' => ' Ma/05'
 								);
 								echo form_input($data);   ?> 
+								<?php echo form_error('description'); ?>
 							</div>
 	                         
-							 
-							<div class="form-group">
-								<label>Amount</label>      
-								<?php $data = array(
-								
-								'name'        => 'amount',
-								'value'          => $payment->amount,
-								'class'       => 'form-control',
-								'style'       => 'height:30px',
-								'placeholder' => 'Eg: 4 or 6 0r 12'
-								// 'required' => 'required'
-								);
-								echo form_input($data);   ?> 
-							</div> 
-							 
 							
+							 
+							 
 	 
 							<div class="form-group" >
                 
@@ -142,4 +112,17 @@
 		
 	</section><!-- /.content -->
 
-	
+		
+	<script>
+	 
+	 $(document).ready(function(){
+	$("#submit").click(function(){
+	$("#form").submit();  // jQuey's submit function applied on form.
+	});
+	});
+	</script>   	
+		
+		
+		
+		
+

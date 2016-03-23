@@ -37,8 +37,8 @@
 		   $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		//$this->form_validation->set_rules('registernumber', 'Register Number', '|required|min_length[5]|max_length[20]|numeric', array('numeric' => 'Insert A numeric vlaue'));
 			$this->form_validation->set_rules('studentname', 'Student Name', 'trim|required|min_length[5]|max_length[20]|alpha');
-			$this->form_validation->set_rules('parentname', 'Parent Name', 'trim|required|min_length[5]|max_length[20]|alpha');
-			$this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[5]|max_length[20]|alpha');
+			$this->form_validation->set_rules('parentname', 'Parent Name', 'trim|required|min_length[2]|max_length[20]|alpha');
+			$this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[5]|max_length[20]');
 			$this->form_validation->set_rules('phonenumber', 'Phone Number', 'numeric|required|min_length[10]|max_length[10]');
 			
 			//$this->StudentModel->getNextRegisterNumber();
@@ -282,6 +282,51 @@
     }
 	
 	
+	function ajaxGetStudentSearch3()
+    {
+        $search=  $this->input->post('search');
+        $totalRec = count($this->StudentModel->getRows());
+        $config['first_link']  = 'First';
+       // $config['div']         = 'postList'; //parent div tag id
+        $config['base_url']    = base_url().'index.php/Student/ajaxPaginationData';
+        $config['total_rows']  = $totalRec;
+        $config['per_page']    = $this->perPage;
+        
+        $this->ajax_pagination->initialize($config);
+        
+        //get the posts data
+        $data['students'] = $this->StudentModel->getStudent($search);
+        
+        //load the view
+		//echo '<option >jgfjgdfgfg </option>';
+		                foreach ($data['students'] as $student) {
+							echo    '<option value=';
+							 echo $student->id;  
+							echo '>';
+							 echo $student->name;
+							echo '</option>';
+						}
+									
+		
+       // $this->load->view('ajax-pagination-data', $data, false);
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	function ajaxGetStudentSearchForPayment()
@@ -480,7 +525,14 @@ $this->load->view('message', $error);
 }
 }	
 	
+
 	
+	
+	
+	
+	public function getStudentRegisteredCourseAjax(){
+		$this->load->view('tess');
+		}
 	
 	
 	
